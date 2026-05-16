@@ -1,0 +1,64 @@
+{
+	"[c]": {
+		"editor.defaultFormatter": "keyhr.42-c-format"
+	},
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"chat.disableAIFeatures": true,
+	"workbench.editorAssociations": {
+		"*.pdf": "pdfViewer.PDFEdit"
+	},
+	"C_Cpp.default.customConfigurationVariables": {},
+	"files.autoSave": "afterDelay",
+	"python.analysis.inlayHints.functionReturnTypes": true,
+	"python.analysis.inlayHints.pytestParameters": true,
+	"python.analysis.inlayHints.variableTypes": true,
+	"explorer.confirmDragAndDrop": false,
+	"workbench.iconTheme": "vscode-great-icons",
+	"explorer.confirmDelete": false,
+	"json.schemas": [],
+	"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+	"terminal.integrated.fontLigatures.enabled": true,
+	"terminal.integrated.fontSize": 14,
+	"terminal.integrated.lineHeight": 1.2,
+	"terminal.integrated.fontWeight": "normal",
+	"editor.fontFamily": "JetBrains Mono",
+	"editor.fontLigatures": true,
+
+	"workbench.colorCustomizations": {
+		"editor.background": "#1e1e1e",
+		"editor.foreground": "#d4d4d4",
+		"activityBar.background": "#393939",
+		"sideBar.background": "#252525",
+		"editorInlayHint.background": "#2c313a",
+		"editorInlayHint.foreground": "#4ec9b0",
+		"editorInlayHint.typeBackground": "#2c313a",
+		"editorInlayHint.typeForeground": "#4ec9b0",
+		"editorInlayHint.parameterBackground": "#2c313a",
+		"editorInlayHint.parameterForeground": "#d19a66"
+	},
+
+	"editor.tokenColorCustomizations": {
+		"comments": "#7C7C7C",
+		"keywords": "#e37eff",
+		"strings": "#e2ffc0",
+		"numbers": "#e4740c",
+		"functions": "#c3c354",
+		"variables": "#76d8ff",
+		"textMateRules": [
+			{
+				"scope": [
+					"support.type.python",
+					"entity.name.type",
+					"meta.function.parameters.annotation.python",
+					"meta.type.annotation.python"
+				],
+				"settings": {
+					"foreground": "#63d37d",
+					"fontStyle": "bold"
+				}
+			}
+		]
+	},
+
+}
