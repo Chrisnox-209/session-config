@@ -2,6 +2,46 @@
 
 ZSHRC="$HOME/.zshrc"
 
+# =========================================================
+# CHECK .zshrc
+# =========================================================
+if [ ! -f "$ZSHRC" ]; then
+  echo "❌ .zshrc introuvable"
+  echo "➡️  Installe/configure zsh avant de lancer ce script"
+  exit 1
+fi
+
+# =========================================================
+# CONFIG THEME OH-MY-ZSH
+# =========================================================
+set_zsh_theme() {
+  THEME='ZSH_THEME="robbyrussell"'
+
+  echo ""
+  echo "🎨 Vérification du thème ZSH..."
+
+  if grep -q '^ZSH_THEME=' "$ZSHRC"; then
+    CURRENT_THEME=$(grep '^ZSH_THEME=' "$ZSHRC")
+
+    if echo "$CURRENT_THEME" | grep -q 'robbyrussell'; then
+      echo "✔ Theme robbyrussell déjà configuré"
+    else
+      echo "🔄 Remplacement du thème actuel..."
+      sed -i.bak 's/^ZSH_THEME=.*/ZSH_THEME="robbyrussell"/' "$ZSHRC"
+      echo "✔ Theme remplacé par robbyrussell"
+    fi
+  else
+    echo "➕ Ajout du thème robbyrussell..."
+    echo "" >> "$ZSHRC"
+    echo '# ===== OH MY ZSH THEME =====' >> "$ZSHRC"
+    echo "$THEME" >> "$ZSHRC"
+    echo "✔ Theme ajouté"
+  fi
+}
+
+# =========================================================
+# AJOUT BLOCS
+# =========================================================
 add_block() {
   NAME="$1"
   CONTENT="$2"
@@ -31,14 +71,18 @@ add_block() {
   esac
 }
 
-### ---------------- ALIAS EZA ----------------
+# =========================================================
+# ALIAS EZA
+# =========================================================
 EZA_BLOCK='
 alias ls="eza --icons --group-directories-first"
 alias l="eza -la --header --icons"
 alias tree="eza --tree --header"
 '
 
-### ---------------- GIT 42 ----------------
+# =========================================================
+# GIT 42
+# =========================================================
 GIT_BLOCK='
 alias git42='"'"'git config user.name "cpietrza" && git config user.email "cpietrza@student.42lyon.fr" && echo "Config Git: 42 (Vogsphere)"'"'"'
 
@@ -47,7 +91,9 @@ alias gitperso='"'"'git config user.name "Chrisnox-209" && git config user.email
 alias gitcheck='"'"'git config user.name && git config user.email'"'"'
 '
 
-### ---------------- COMMITS ----------------
+# =========================================================
+# COMMITS
+# =========================================================
 COMMIT_BLOCK='
 # ===== CONFIG COMMITS =====
 
@@ -74,7 +120,7 @@ function gcmerge     { git commit -m "🔀 merge($1): ${@:2}"; }
 
 # ---------- Git commit help ----------
 gchelp() {
-cat << 'EOF'
+cat << EOF
 📘 Git Emoji Commit Helpers (préfixe gc)
 ========================================
 
@@ -98,7 +144,7 @@ Types de commit disponibles :
 🧩 gcfeat        ➜ Nouvelle fonctionnalité
 🐛 gcfix         ➜ Correction de bug
 📝 gcdocs        ➜ Documentation
-🛠  gctweak       ➜ Petit ajustement / renommage
+🛠  gctweak      ➜ Petit ajustement / renommage
 🔨 gcrefactor    ➜ Refactor sans changement fonctionnel
 💄 gcstyle       ➜ Formatage / normes / lint
 ➕ gcadd         ➜ Ajout fichiers / assets / media
@@ -110,9 +156,9 @@ Types de commit disponibles :
 ⏪ gcbuild       ➜ Build / artefacts
 ❌ gcremove      ➜ Suppression fichiers / modules
 🎨 gcmedia       ➜ Media / images / vidéos
-⚙️  gcconfig      ➜ Configuration / setup
-⬆️  gcupgrade     ➜ Upgrade dépendances / packages
-⬇️  gcdowngrade   ➜ Downgrade dépendances / packages
+⚙️  gcconfig     ➜ Configuration / setup
+⬆️  gcupgrade    ➜ Upgrade dépendances / packages
+⬇️  gcdowngrade  ➜ Downgrade dépendances / packages
 🚑 gchotfix      ➜ Hotfix / correction urgente
 🔀 gcmerge       ➜ Merge branches
 
@@ -120,15 +166,18 @@ EOF
 }
 '
 
+# =========================================================
+# EXECUTION
+# =========================================================
+set_zsh_theme
+
 add_block "ALIAS EZA" "$EZA_BLOCK"
 add_block "CONFIG GIT 42" "$GIT_BLOCK"
 add_block "CONFIG COMMITS" "$COMMIT_BLOCK"
 
-
 echo ""
 echo "🔄 Recharge automatique de zsh..."
 
-# IMPORTANT : source final demandé
 if [ -f "$ZSHRC" ]; then
   # shellcheck disable=SC1090
   . "$ZSHRC"
