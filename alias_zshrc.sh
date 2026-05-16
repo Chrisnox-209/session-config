@@ -34,8 +34,7 @@ add_block() {
 ### ---------------- ALIAS EZA ----------------
 EZA_BLOCK='
 alias ls="eza --icons --group-directories-first"
-alias l="eza -l --header --icons"
-alias la="eza -la --header --icons"
+alias l="eza -la --header --icons"
 alias tree="eza --tree --header"
 '
 
