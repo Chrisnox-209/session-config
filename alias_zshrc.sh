@@ -18,27 +18,40 @@ set_zsh_theme() {
   THEME='ZSH_THEME="robbyrussell"'
 
   echo ""
-  echo "🎨 Vérification du thème ZSH..."
+  echo "Configurer le thème robbyrussell ? (O/n): "
+  read rep
 
-  if grep -q '^ZSH_THEME=' "$ZSHRC"; then
-    CURRENT_THEME=$(grep '^ZSH_THEME=' "$ZSHRC")
+  case "$rep" in
+    O|o|oui|Oui|"")
+      echo ""
+      echo "🎨 Vérification du thème ZSH..."
 
-    if echo "$CURRENT_THEME" | grep -q 'robbyrussell'; then
-      echo "✔ Theme robbyrussell déjà configuré"
-    else
-      echo "🔄 Remplacement du thème actuel..."
-      sed -i.bak 's/^ZSH_THEME=.*/ZSH_THEME="robbyrussell"/' "$ZSHRC"
-      echo "✔ Theme remplacé par robbyrussell"
-    fi
-  else
-    echo "➕ Ajout du thème robbyrussell..."
-    echo "" >> "$ZSHRC"
-    echo '# ===== OH MY ZSH THEME =====' >> "$ZSHRC"
-    echo "$THEME" >> "$ZSHRC"
-    echo "✔ Theme ajouté"
-  fi
+      if grep -q '^ZSH_THEME=' "$ZSHRC"; then
+        CURRENT_THEME=$(grep '^ZSH_THEME=' "$ZSHRC")
+
+        if echo "$CURRENT_THEME" | grep -q 'robbyrussell'; then
+          echo "✔ Theme robbyrussell déjà configuré"
+        else
+          echo "🔄 Remplacement du thème actuel..."
+          sed -i.bak 's/^ZSH_THEME=.*/ZSH_THEME="robbyrussell"/' "$ZSHRC"
+          echo "✔ Theme remplacé par robbyrussell"
+        fi
+      else
+        echo "➕ Ajout du thème robbyrussell..."
+        echo "" >> "$ZSHRC"
+        echo '# ===== OH MY ZSH THEME =====' >> "$ZSHRC"
+        echo "$THEME" >> "$ZSHRC"
+        echo "✔ Theme ajouté"
+      fi
+      ;;
+    N|n|non|Non)
+      echo "Configuration du thème ignorée"
+      ;;
+    *)
+      echo "Réponse non reconnue"
+      ;;
+  esac
 }
-
 # =========================================================
 # AJOUT BLOCS
 # =========================================================
@@ -180,7 +193,7 @@ echo "🔄 Recharge automatique de zsh..."
 
 if [ -f "$ZSHRC" ]; then
   # shellcheck disable=SC1090
-  . "$ZSHRC"
+  source . "$ZSHRC"
 fi
 
 echo "✔ Terminé ! .zshrc rechargé"
